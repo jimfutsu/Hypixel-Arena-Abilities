@@ -29,7 +29,7 @@ public class ThunderStorm implements Listener {
             if (p.getItemInHand().getType() == Material.IRON_SWORD){
                 if(p.getItemInHand().hasItemMeta()){
                     if (p.getItemInHand().getItemMeta().getLore().contains("ThunderStorm")) {
-                        if(plugin.energy.get(p.getName()) >= 60){
+                        if(plugin.energy.get(p.getName()) >= 70){
                         //Strike 1
                         final Location lstrike = p.getLocation();
                         double x = p.getLocation().getX();
@@ -50,7 +50,7 @@ public class ThunderStorm implements Listener {
                                     if (player != p && p.getWorld() == p.getWorld() && damageloc.distance(player.getLocation()) <= 6) {
                                         if(!player.isDead()){
                                             Integer energybefore = plugin.energy.get(p.getName());
-                                            Integer energyafter = energybefore - 60;
+                                            Integer energyafter = energybefore - 70;
                                             plugin.energy.remove(p.getName());
                                             plugin.energy.put(p.getName(), energyafter);
                                             plugin.updateEnergy(p.getName());
