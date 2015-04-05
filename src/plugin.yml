@@ -1,0 +1,25 @@
+name: HypixelAbilities
+main: me.jimfutsu.HypixelAbilities.Main
+version: 1.1
+author: jimfutsu
+commands:
+  GiveLore:
+    description: Give item with lore
+    usage: /<command>
+    aliases: []
+  FullHealth:
+    description: Sets your health to full
+    usage: /<command>
+    aliases: []
+  ViewHealth:
+    description: View your health
+    usage: /<command>
+    aliases: []
+  StartEXP:
+    description: Starts XP timer
+    usage: /<command>
+    aliases: []
+  ClearEXP:
+    description: Clear player XP
+    usage: /<command>
+    aliases: []
