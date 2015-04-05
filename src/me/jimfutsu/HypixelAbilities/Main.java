@@ -113,14 +113,21 @@ public class Main extends JavaPlugin implements Listener {
             Bukkit.getServer().getPlayer(name).setHealth(0);
         }
         else{
-            Integer healthcount = health.get(name);
-
             ScoreboardManager manager = Bukkit.getScoreboardManager();
             Scoreboard board = manager.getNewScoreboard();
 
             Objective objective = board.registerNewObjective("health", "dummy");
-            objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
-            objective.setDisplayName(Integer.toString(healthcount));
+            objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            objective.setDisplayName(ChatColor.RED + "Arena Brawl Health");
+            if(Bukkit.getOnlinePlayers().length <= 16){
+                for(Player player : Bukkit.getOnlinePlayers()){
+                    Score playerscore = objective.getScore(Bukkit.getOfflinePlayer(ChatColor.WHITE + player.getName().toString()));
+                    playerscore.setScore(health.get(player.getName()));
+                }
+                for(Player player : Bukkit.getOnlinePlayers()){
+                    player.setScoreboard(board);
+                }
+            }
         }
     }
 

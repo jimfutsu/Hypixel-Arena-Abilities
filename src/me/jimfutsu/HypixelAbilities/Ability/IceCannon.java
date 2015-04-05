@@ -52,6 +52,9 @@ public class IceCannon implements Listener{
                             plugin.energy.put(p.getName(), energyafter);
                             plugin.updateEnergy(p.getName());
                         }
+                        else{
+                            p.sendMessage(ChatColor.YELLOW + "You do not have enough energy!");
+                        }
                     }
                 }
             }
