@@ -7,6 +7,10 @@ commands:
     description: Give item with lore
     usage: /<command>
     aliases: []
+  GiveLoreDust:
+    description: Give dust item with lore
+    usage: /<command>
+    aliases: []
   FullHealth:
     description: Sets your health to full
     usage: /<command>
@@ -22,4 +26,3 @@ commands:
   ClearEXP:
     description: Clear player XP
     usage: /<command>
-    aliases: []

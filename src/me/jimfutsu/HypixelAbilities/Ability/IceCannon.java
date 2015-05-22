@@ -1,10 +1,7 @@
 package me.jimfutsu.HypixelAbilities.Ability;
 
 import me.jimfutsu.HypixelAbilities.Main;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
@@ -24,6 +21,9 @@ import java.util.UUID;
 public class IceCannon implements Listener{
 
     HashMap<UUID, String> playertouuid = new HashMap<UUID, String>();;
+
+    int task;
+    int task2;
 
     private Main plugin;
 
@@ -89,3 +89,4 @@ public class IceCannon implements Listener{
         }
     }
 }
+

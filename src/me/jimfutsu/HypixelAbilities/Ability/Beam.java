@@ -65,7 +65,6 @@ public class Beam
             float ratio = length / particles;
             Vector v = line.multiply(ratio);
 
-            Location counted = loc.clone().subtract(v);
             for (int i = 0; i < 2; i++)
             {
                 loc.add(v);

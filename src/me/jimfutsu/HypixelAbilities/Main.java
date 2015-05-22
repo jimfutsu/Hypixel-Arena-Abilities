@@ -1,6 +1,7 @@
 package me.jimfutsu.HypixelAbilities;
 
 import me.jimfutsu.HypixelAbilities.Ability.Beam;
+import me.jimfutsu.HypixelAbilities.Ability.FlameCircle;
 import me.jimfutsu.HypixelAbilities.Ability.IceCannon;
 import me.jimfutsu.HypixelAbilities.Ability.ThunderStorm;
 import org.bukkit.Bukkit;
@@ -29,6 +30,7 @@ public class Main extends JavaPlugin implements Listener {
         Bukkit.getServer().getPluginManager().registerEvents(new Beam(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new ThunderStorm(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new IceCannon(this), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new FlameCircle(this), this);
     }
 
     @Override
@@ -38,7 +40,6 @@ public class Main extends JavaPlugin implements Listener {
 
     public HashMap<String, Integer> health = new HashMap<String, Integer>();
     public HashMap<String, Integer> energy = new HashMap<String, Integer>();
-    public ArrayList<String> scoreboardcontain = new ArrayList<String>();
 
     //tempCommand to give items
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -46,6 +47,9 @@ public class Main extends JavaPlugin implements Listener {
             Player p = (Player) sender;
             if (cmd.getName().equalsIgnoreCase("GiveLore")) {
                 p.getInventory().addItem(setNameAndLore(Material.IRON_SWORD, 1, "Iron Sword", args[0]));
+            }
+            if (cmd.getName().equalsIgnoreCase("GiveLoreDust")) {
+                p.getInventory().addItem(setNameAndLore(Material.GLOWSTONE_DUST, 1, "Glowstone Dust", args[0]));
             }
             if (cmd.getName().equalsIgnoreCase("FullHealth")) {
                 health.remove(p.getName());
@@ -67,17 +71,14 @@ public class Main extends JavaPlugin implements Listener {
 
     @EventHandler
     @SuppressWarnings("unused")
-    public void onJoin (PlayerJoinEvent e){
+    public void onJoin (PlayerJoinEvent e) {
         Player p = e.getPlayer();
         //Health Setter
-        if(!health.containsKey(p.getName())){
+        if (!health.containsKey(p.getName())) {
             health.put(p.getName(), 2000);
         }
-        if(!scoreboardcontain.contains(p.getName())){
-                updateHealthBoard(p.getName());
-        }
+        updateHealthBoard(p.getName());
     }
-
     //Player DMG
     @EventHandler
     @SuppressWarnings("unused")
@@ -131,24 +132,32 @@ public class Main extends JavaPlugin implements Listener {
         }
     }
 
+    boolean startexp = false;
+
     public void startEnergyCount(){
-        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-            public void run() {
-                for(Player p : Bukkit.getOnlinePlayers()){
-                    if(energy.containsKey(p.getName())){
-                        if(p.getLevel() < 100){
-                            Integer newpenergy = energy.get(p.getName()) + 1;
-                            energy.remove(p.getName());
-                            energy.put(p.getName(), newpenergy);
-                            p.setLevel(newpenergy);
+        if(!startexp){
+            startexp = true;
+            Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+                public void run() {
+                    for(Player p : Bukkit.getOnlinePlayers()){
+                        if(energy.containsKey(p.getName())){
+                            if(p.getLevel() < 100){
+                                Integer newpenergy = energy.get(p.getName()) + 1;
+                                energy.remove(p.getName());
+                                energy.put(p.getName(), newpenergy);
+                                p.setLevel(newpenergy);
+                            }
+                        }
+                        else{
+                            energy.put(p.getName(), 0);
                         }
                     }
-                    else{
-                        energy.put(p.getName(), 0);
-                    }
                 }
-            }
-        }, 0, 2);
+            }, 0, 2);
+        }
+        else{
+            System.out.println("Energy Already Started");
+        }
     }
 
     public void updateEnergy(String name){
